@@ -9,7 +9,7 @@ const FragranceCard = ({ fragrance }) => {
       href={`/fragrance/${slug}`}
       className="group flex flex-col rounded-2xl border border-black/10 p-6 transition hover:border-black/30"
     >
-      <div className="mb-6 flex aspect-[4/5] items-center justify-center rounded-xl bg-black/[0.03] text-xs text-black/30">
+      <div className="mb-6 flex aspect-4/5 items-center justify-center rounded-xl bg-black/3 text-xs text-black/30">
         تصویر بطری
       </div>
 

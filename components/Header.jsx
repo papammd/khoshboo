@@ -1,10 +1,10 @@
-import Link from "next/link"
+import Link from "next/link";
 
 const links = [
   { href: "/explore", label: "کاوش" },
   { href: "/compare", label: "مقایسه" },
   { href: "/find", label: "عطر مناسب من" },
-]
+];
 
 const Header = () => {
   return (
@@ -34,7 +34,7 @@ const Header = () => {
         </button>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
