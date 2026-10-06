@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
+
 import FragranceCard from "@/components/FragranceCard"
 import RatingBar from "@/components/RatingBar"
 import {
@@ -48,7 +47,7 @@ const FragranceDetail = async ({ params }) => {
 
   return (
     <>
-      <Header />
+      
       <main className="flex-1">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <nav className="mb-8 text-sm text-black/50">
@@ -139,7 +138,7 @@ const FragranceDetail = async ({ params }) => {
           )}
         </div>
       </main>
-      <Footer />
+      
     </>
   )
 }
