@@ -1,8 +1,7 @@
 import Link from "next/link"
 import SearchBar from "./SearchBar"
 
-const suggestions = ["دیور ساواژ", "کرید اونتوس", "وانیل", "عود", "تابستانی و خنک"]
-
+const suggestions = ["دیور ساواژ", "کرید اونتوس", "وانیل", "برگاموت", "پارفومز دو مارلی"]
 const Hero = () => {
   return (
     <section className="mx-auto max-w-4xl px-6 py-24 text-center md:py-36">
