@@ -6,7 +6,7 @@ import {
   familyLabels,
   priceLabels,
 } from "@/lib/labels";
-
+import FragranceImage from "@/components/FragranceImage";
 const Dots = ({ value }) => (
   <div className="flex items-center gap-2">
     <div className="flex gap-1">
@@ -71,9 +71,12 @@ const CompareTable = ({ items, available, canAdd, buildHref }) => {
             <th className={labelClass} />
             {items.map((f) => (
               <th key={f.id} className={`${cellClass} font-normal border-b-0 pb-0 `}>
-                <div className={`${imageBox} bg-black/[0.03] text-black/30`}>
-                  تصویر بطری
-                </div>
+                <FragranceImage
+  src={f.image}
+  alt={`${f.brand} ${f.name}`}
+  className={`${imageBox} bg-black/[0.03]`}
+  sizes="200px"
+/>
               </th>
             ))}
 

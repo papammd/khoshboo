@@ -1,17 +1,30 @@
-import Link from "next/link"
-import { genderLabels, familyLabels } from "@/lib/labels"
+import Link from "next/link";
+import { genderLabels, familyLabels } from "@/lib/labels";
+import FragranceImage from "./FragranceImage";
 
 const FragranceCard = ({ fragrance }) => {
-  const { slug, name, brand, gender, concentration, scentFamilies, longevity } = fragrance
+  const {
+    slug,
+    name,
+    brand,
+    gender,
+    concentration,
+    scentFamilies,
+    longevity,
+    image,
+  } = fragrance;
 
   return (
     <Link
       href={`/fragrance/${slug}`}
       className="group flex flex-col rounded-2xl border border-black/10 p-6 transition hover:border-black/30"
     >
-      <div className="mb-6 flex aspect-4/5 items-center justify-center rounded-xl bg-black/3 text-xs text-black/30">
-        تصویر بطری
-      </div>
+      <FragranceImage
+        src={image}
+        alt={`${brand} ${name}`}
+        className="mb-6 aspect-[4/5] rounded-xl"
+        sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+      />
 
       <p className="text-xs text-black/50">{brand}</p>
       <h3 className="mt-1 text-xl font-bold">{name}</h3>
@@ -43,7 +56,7 @@ const FragranceCard = ({ fragrance }) => {
         </div>
       </div>
     </Link>
-  )
-}
+  );
+};
 
-export default FragranceCard
+export default FragranceCard;

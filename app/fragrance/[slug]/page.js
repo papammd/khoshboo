@@ -1,67 +1,75 @@
-import Link from "next/link"
-import { notFound } from "next/navigation"
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import FragranceCard from "@/components/FragranceCard"
-import RatingBar from "@/components/RatingBar"
+import FragranceCard from "@/components/FragranceCard";
+import RatingBar from "@/components/RatingBar";
 import {
   getFragranceBySlug,
   getAllSlugs,
   getSimilarFragrances,
-} from "@/lib/fragrances"
+} from "@/lib/fragrances";
 import {
   genderLabels,
   seasonLabels,
   occasionLabels,
   familyLabels,
   priceLabels,
-} from "@/lib/labels"
+} from "@/lib/labels";
+import FragranceImage from "@/components/FragranceImage";
 
 export const generateStaticParams = () =>
-  getAllSlugs().map((slug) => ({ slug }))
+  getAllSlugs().map((slug) => ({ slug }));
 
 export const generateMetadata = async ({ params }) => {
-  const { slug } = await params
-  const fragrance = getFragranceBySlug(slug)
+  const { slug } = await params;
+  const fragrance = getFragranceBySlug(slug);
 
-  if (!fragrance) return { title: "عطر پیدا نشد | خوش‌بو" }
+  if (!fragrance) return { title: "عطر پیدا نشد | خوش‌بو" };
 
   return {
     title: `${fragrance.brand} ${fragrance.name} | خوش‌بو`,
     description: fragrance.description,
-  }
-}
+  };
+};
 
 const noteGroups = [
   { key: "top", label: "نت‌های سر" },
   { key: "middle", label: "نت‌های میانی" },
   { key: "base", label: "نت‌های پایه" },
-]
+];
 
 const FragranceDetail = async ({ params }) => {
-  const { slug } = await params
-  const fragrance = getFragranceBySlug(slug)
+  const { slug } = await params;
+  const fragrance = getFragranceBySlug(slug);
 
-  if (!fragrance) notFound()
+  if (!fragrance) notFound();
 
-  const similar = getSimilarFragrances(fragrance)
+  const similar = getSimilarFragrances(fragrance);
 
   return (
     <>
-      
       <main className="flex-1">
         <div className="mx-auto max-w-7xl px-6 py-12">
           <nav className="mb-8 text-sm text-black/50">
-            <Link href="/" className="transition hover:text-black">خانه</Link>
+            <Link href="/" className="transition hover:text-black">
+              خانه
+            </Link>
             <span className="mx-2">/</span>
-            <Link href="/explore" className="transition hover:text-black">کاوش</Link>
+            <Link href="/explore" className="transition hover:text-black">
+              کاوش
+            </Link>
             <span className="mx-2">/</span>
             <span className="text-black">{fragrance.name}</span>
           </nav>
 
           <div className="grid gap-12 md:grid-cols-2">
-            <div className="flex aspect-[4/5] items-center justify-center rounded-2xl bg-black/[0.03] text-sm text-black/30">
-              تصویر بطری
-            </div>
+            <FragranceImage
+              src={fragrance.image}
+              alt={`${fragrance.brand} ${fragrance.name}`}
+              priority
+              className="aspect-[4/5] rounded-2xl"
+              sizes="(min-width: 768px) 50vw, 100vw"
+            />
 
             <div>
               <p className="text-sm text-black/50">{fragrance.brand}</p>
@@ -69,10 +77,13 @@ const FragranceDetail = async ({ params }) => {
                 {fragrance.name}
               </h1>
               <p className="mt-3 text-sm text-black/50">
-                {fragrance.concentration} · {genderLabels[fragrance.gender]} · {fragrance.releaseYear}
+                {fragrance.concentration} · {genderLabels[fragrance.gender]} ·{" "}
+                {fragrance.releaseYear}
               </p>
 
-              <p className="mt-6 leading-8 text-black/70">{fragrance.description}</p>
+              <p className="mt-6 leading-8 text-black/70">
+                {fragrance.description}
+              </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {fragrance.scentFamilies.map((family) => (
@@ -103,7 +114,9 @@ const FragranceDetail = async ({ params }) => {
                 <div>
                   <dt className="text-black/50">موقعیت‌ها</dt>
                   <dd className="mt-1">
-                    {fragrance.occasions.map((o) => occasionLabels[o]).join("، ")}
+                    {fragrance.occasions
+                      .map((o) => occasionLabels[o])
+                      .join("، ")}
                   </dd>
                 </div>
                 <div>
@@ -115,12 +128,19 @@ const FragranceDetail = async ({ params }) => {
           </div>
 
           <section className="mt-16">
-            <h2 className="mb-6 text-2xl font-bold tracking-tight">هرم بویایی</h2>
+            <h2 className="mb-6 text-2xl font-bold tracking-tight">
+              هرم بویایی
+            </h2>
             <div className="grid gap-4 md:grid-cols-3">
               {noteGroups.map((group) => (
-                <div key={group.key} className="rounded-2xl border border-black/10 p-6">
+                <div
+                  key={group.key}
+                  className="rounded-2xl border border-black/10 p-6"
+                >
                   <h3 className="text-sm text-black/50">{group.label}</h3>
-                  <p className="mt-3 leading-8">{fragrance.notes[group.key].join("، ")}</p>
+                  <p className="mt-3 leading-8">
+                    {fragrance.notes[group.key].join("، ")}
+                  </p>
                 </div>
               ))}
             </div>
@@ -128,7 +148,9 @@ const FragranceDetail = async ({ params }) => {
 
           {similar.length > 0 && (
             <section className="mt-16">
-              <h2 className="mb-6 text-2xl font-bold tracking-tight">عطرهای مشابه</h2>
+              <h2 className="mb-6 text-2xl font-bold tracking-tight">
+                عطرهای مشابه
+              </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {similar.map((item) => (
                   <FragranceCard key={item.id} fragrance={item} />
@@ -138,9 +160,8 @@ const FragranceDetail = async ({ params }) => {
           )}
         </div>
       </main>
-      
     </>
-  )
-}
+  );
+};
 
-export default FragranceDetail
+export default FragranceDetail;
